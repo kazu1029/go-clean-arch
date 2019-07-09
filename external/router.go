@@ -1,16 +1,18 @@
 package external
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/kazu1029/go-clean-arch/external/mysql"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/kazu1029/go-clean-arch/adapter/controllers"
+	"github.com/kazu1029/go-clean-arch/external/mysql"
 )
 
 var Router *gin.Engine
 
 func init() {
 	router := gin.Default()
-	logger = &Logger{}
+	logger := &Logger{}
 	conn := mysql.Connect()
 	userController := controllers.NewUserController(conn, logger)
 
