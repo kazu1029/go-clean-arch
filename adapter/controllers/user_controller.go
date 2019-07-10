@@ -35,9 +35,9 @@ func (controller *UserController) Create(c interfaces.Context) {
 			UserID int `json:"user_id"`
 		}
 	)
-	req := Request{}
-	c.Bind(&req)
-	user := domain.User{Name: req.Name, Email: req.Email}
+
+	// use PostForm when Content-Type is application/x-www-form-urlencoded
+	user := domain.User{Name: c.PostForm("name"), Email: c.PostForm("email")}
 
 	id, err := controller.Interactor.Add(user)
 	if err != nil {
