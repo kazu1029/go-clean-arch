@@ -10,6 +10,15 @@ import (
 	"github.com/pkg/errors"
 )
 
+type Request struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+type Response struct {
+	UserID int `json:"user_id"`
+}
+
 type UserController struct {
 	Interactor usecase.UserInteractor
 }
@@ -26,16 +35,6 @@ func NewUserController(conn *gorm.DB, logger interfaces.Logger) *UserController 
 }
 
 func (controller *UserController) Create(c interfaces.Context) {
-	type (
-		Request struct {
-			Name  string `json:"name"`
-			Email string `json:"email"`
-		}
-		Response struct {
-			UserID int `json:"user_id"`
-		}
-	)
-
 	// use PostForm when Content-Type is application/x-www-form-urlencoded
 	user := domain.User{Name: c.PostForm("name"), Email: c.PostForm("email")}
 

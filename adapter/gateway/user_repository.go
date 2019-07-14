@@ -5,18 +5,16 @@ import (
 	"github.com/kazu1029/go-clean-arch/domain"
 )
 
-type (
-	UserRepository struct {
-		Conn *gorm.DB
-	}
+type UserRepository struct {
+	Conn *gorm.DB
+}
 
-	User struct {
-		gorm.Model
-		Name  string `gorm:"size:20;not null"`
-		Email string `gorm:"size:100;not null"`
-		Age   int    `gorm:"type:smallint"`
-	}
-)
+type User struct {
+	gorm.Model
+	Name  string `gorm:"size:20;not null"`
+	Email string `gorm:"size:100;not null"`
+	Age   int    `gorm:"type:smallint"`
+}
 
 func (r *UserRepository) Store(u domain.User) (id int, err error) {
 	user := &User{
